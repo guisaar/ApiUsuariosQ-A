@@ -6,6 +6,7 @@ const postagemUser = new Schema({
     email: String,
     usuario: String,
     senha: String,
+    urlImg: String,
     posts: [{
         pergunta: String,
         respostas: [{
