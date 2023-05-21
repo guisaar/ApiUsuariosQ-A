@@ -36,46 +36,4 @@ export class UserService {
             return error;
         }
     }
-
-   /* updateUser(username: String, user: IUser) {
-        try {
-            return userMongoDB.updateOne({ usuario: username }, user);
-        } catch (error) {
-            return error;
-        }
-    }
-
-    deleteUser(username: String) {
-        try {
-            return userMongoDB.deleteOne({ usuario: username });
-        } catch (error) {
-            return error;
-        }
-    }
-
-    setFollowing(usernameOrigem: String, usernameDestino: String) {
-        try {
-            return userMongoDB.updateOne({ usuario: usernameOrigem }, { $push: { "seguindo": { usuario: usernameDestino } } });
-
-        } catch (error) {
-            return error;
-        }
-    }
-
-    setFollower(usernameOrigem: String, usernameDestino: String) {
-        try {
-            return userMongoDB.updateOne({ usuario: usernameDestino }, { $push: { "seguidores": { usuario: usernameOrigem } } });
-        } catch (error) {
-            return error;
-        }
-    }
-
-    setLike(usernameOrigem: String, id: String){
-        try {
-            return userMongoDB.updateOne({'posts._id':id }, { $push: { "posts.$.likes": { usuario: usernameOrigem } } });
-        } catch (error) {
-            return error;
-        }
-    } */
-
 } 

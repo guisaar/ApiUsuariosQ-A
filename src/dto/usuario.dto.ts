@@ -1,6 +1,7 @@
 export class User {
     usuario: string;
     senha: string;
+    urlImg: String;
     email: string;
     posts?: PostQuestion[];
     criadoEm: Date;
