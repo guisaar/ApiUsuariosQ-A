@@ -2,7 +2,7 @@ export class User {
     usuario: string;
     senha: string;
     email: string;
-    posts?: Post[];
+    posts?: PostQuestion[];
     criadoEm: Date;
 }
 
@@ -15,7 +15,7 @@ export class Respostas {
     atualizadoEm: Date;
 }
 
-export class Post {
+export class PostQuestion {
     pergunta: string;
     respostas: Respostas[];
     tags: string[];
