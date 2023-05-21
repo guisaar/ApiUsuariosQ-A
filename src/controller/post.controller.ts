@@ -26,8 +26,22 @@ export class PostsController {
     }
 
     @Put('/update/posts/:_id')
-    async updatePostById(@Param() _postId, @Body() post: PostQuestion, @Res() res: Response) {
-        console.log( await this.postService.updatePostById(_postId._id, post));
+    async updatePostById(@Param() _id, @Body() post: PostQuestion, @Res() res: Response) {
+        if (Object.keys(post).includes("respostas")) {
+            return res.status(422).send({ message: "Não é possível atualizar o campo de 'respostas'." });
+        }
+
+        if (Object.keys(post).includes("criadoEm")) {
+            return res.status(422).send({ message: "Não é possível atualizar o campo de 'criadoEm'." });
+        }
+
+        await this.postService.updatePostById(_id._id, post);
         return res.status(201).send({ message: "Post atualizado com sucesso." })
+    }
+
+    @Delete('/delete/posts/:_id')
+    async deletePostById(@Param() _postId, @Body() _userId, @Res() res: Response) {
+        console.log(await this.postService.deletePostById(_userId._userId, _postId._id));
+        return res.status(201).send({ message: "Post deletado com sucesso." })
     }
 }

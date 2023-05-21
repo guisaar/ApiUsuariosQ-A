@@ -22,7 +22,7 @@ export class PostService {
         }
     }
 
-    updatePostById (postId: string, post: PostQuestion) {
+    updatePostById(postId: string, post: PostQuestion) {
         let postUpdates = {};
 
         Object.keys(post).map(key => {
@@ -30,7 +30,15 @@ export class PostService {
         })
 
         try {
-            return userMongoDB.updateOne({"posts._id": postId}, { $set: postUpdates });
+            return userMongoDB.updateOne({ "posts._id": postId }, { $set: postUpdates });
+        } catch (error) {
+            return error;
+        }
+    }
+
+    deletePostById(userId: string, postId: string) {
+        try {
+            return userMongoDB.updateOne({ _id: userId }, { $pull: { posts: { _id: postId } } });
         } catch (error) {
             return error;
         }
