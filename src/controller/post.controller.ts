@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Res } from "@nestjs/common";
 import { Response } from 'express';
 import { User, PostQuestion } from "src/dto/usuario.dto";
 import { PostService } from "src/service/post.service";
@@ -9,7 +9,7 @@ export class PostsController {
 
     @Post('/create/:_id')
     async createPost(@Param() _id, @Body() post: PostQuestion, @Res() res: Response) {
-        await this.postService.createPost(_id,post);
+        await this.postService.createPost(_id._id,post);
         return res.status(201).send({ message: "Post criado com sucesso." })
     }
 
