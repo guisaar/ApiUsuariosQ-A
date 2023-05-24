@@ -16,8 +16,12 @@ const postagemUser = new Schema({
             respostas: [{
                 usuario: String,
                 respostaTexto: String,
-                curtidas: []
+                curtidas: [],
+                criadoEm: Date,
+                atualizadoEm: Date
             }],
+            criadoEm: Date,
+            atualizadoEm: Date
         }],
         tags: [],
         criadoEm: Date,

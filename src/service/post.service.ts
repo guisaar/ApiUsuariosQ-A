@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { User, PostQuestion } from "src/dto/usuario.dto";
+import { PostQuestion } from "src/dto/usuario.dto";
 const userMongoDB = require('../dto/user.schema.mongo');
 
 
