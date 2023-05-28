@@ -14,7 +14,7 @@ export class UserController {
         }
 
         if ((!user.usuario)) {
-            return res.status(422).send({ message: "Preencha o usuario" });
+            return res.status(422).send({ message: "Preencha o usuario!" });
         }
         
         if (!user.criadoEm) {
@@ -22,11 +22,11 @@ export class UserController {
         } 
 
         if (!user.telefone || user.telefone.indexOf("(55)") == -1) {
-            return res.status(422).send({message: 'Telefone Não foi Preenchido'})
+            return res.status(422).send({message: 'Telefone Não foi Preenchido!'})
         }
 
         if (!user.idade) {
-            return res.status(422).send({message: 'A Nathalia quer que vc coloque a idade da pessoa.'})
+            return res.status(422).send({message: 'Coloque a idade!'})
         }
 
         if (!user.posts) {
@@ -74,7 +74,6 @@ export class UserController {
         }
     }
 
-    
     @Patch('/:username')
     async updateUser(@Param() username, @Body() user: User, @Res() res: Response){
         if (user.email) {
