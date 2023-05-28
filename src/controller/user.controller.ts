@@ -78,6 +78,11 @@ export class UserController {
     @Patch('/:username')
     async updateUser(@Param() username, @Body() user: User, @Res() res: Response){
         if (user.email) {
+
+            if (user.email.indexOf("@") == -1 || user.email.indexOf(".com") == -1) {
+                return res.status(422).send({message: "Email Invalido!"})
+            }
+
             const userFoundByEmail = await this.userService.getUserByEmail(user.email);
             if (userFoundByEmail.length != 0) {
                 return res.status(422).send({ message: "Email já cadastrado." });
