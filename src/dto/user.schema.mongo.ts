@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const postagemUser = new Schema({
     email: String,
     usuario: String,
+    idade: Number,
+    telefone: String,
     senha: String,
     urlImg: String,
     posts: [{
