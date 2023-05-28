@@ -34,7 +34,7 @@ export class UserController {
         }
 
         if (!user.email || user.email.indexOf("@") == -1 || user.email.indexOf(".com") == -1) {
-            return 
+            return res.status(422).send({message: "Email Invalido!"})
         }
 
         const userFoundByUsername = await this.userService.getUserByUsername(user.usuario);
