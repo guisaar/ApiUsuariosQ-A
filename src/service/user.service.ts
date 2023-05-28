@@ -4,7 +4,6 @@ const userMongoDB = require('../dto/user.schema.mongo');
 
 @Injectable()
 export class UserService {
-
     setUser(user: User) {
         try {
             return userMongoDB.create(user);
@@ -32,6 +31,28 @@ export class UserService {
     getUserByEmail(email: String) {
         try {
             return userMongoDB.find({ email: email }).exec();
+        } catch (error) {
+            return error;
+        }
+    }
+
+    updateUser(username: String, user: User) {
+        let userUpdates = {};
+
+        Object.keys(user).map(key => {
+            userUpdates[key] = user[key]
+        })
+        
+        try {
+            return userMongoDB.updateOne( { usuario: username }, { $set: userUpdates }).exec();
+        } catch (error) {
+            return error;
+        }
+    }
+ 
+    deleteUser(username: String) {
+        try {
+            return userMongoDB.deleteOne({ usuario: username });
         } catch (error) {
             return error;
         }
