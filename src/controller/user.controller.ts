@@ -9,7 +9,7 @@ export class UserController {
 
     @Post('/register')
     async setUser(@Body() user: User, @Res() res: Response) {
-        if (!user) {
+        if (Object.keys(user).length == 0) {
             return res.status(422).send({message: 'JSON INVALIDO!'})
         }
 
@@ -76,8 +76,11 @@ export class UserController {
 
     @Patch('/:username')
     async updateUser(@Param() username, @Body() user: User, @Res() res: Response){
-        if (user.email) {
+        if (Object.keys(user).length == 0) {
+            return res.status(422).send({message: 'Sem dados para atualizar!'})
+        }
 
+        if (user.email) {
             if (user.email.indexOf("@") == -1 || user.email.indexOf(".com") == -1) {
                 return res.status(422).send({message: "Email Invalido!"})
             }
