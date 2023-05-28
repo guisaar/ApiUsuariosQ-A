@@ -3,6 +3,8 @@ export class User {
     senha: string;
     urlImg: String;
     email: string;
+    idade: number;
+    telefone: string;
     posts?: PostQuestion[];
     criadoEm: Date;
 }
