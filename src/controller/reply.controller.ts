@@ -20,4 +20,15 @@ export class ReplyController {
         return res.status(200).send(replies["posts"].map(item => item.respostas).flat());
     }
 
+    @Post('/like/:_id')
+    async likeReplyById(@Param() _id, @Body() user, @Res() res: Response) {
+        if (!user.usermame) {
+            return res.status(422).send({message: "Não foi encontrado alguém que curtiu!"})
+        }
+
+        await this.replyService.likeReplyById(_id._id, user.usermame);
+        return res.status(201).send({ message: "Curtida Inserida com Sucesso." })
+    }
+
+
 }

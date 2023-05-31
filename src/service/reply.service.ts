@@ -21,4 +21,17 @@ export class ReplyService {
             return error;
         }
     }
+
+    async likeReplyById(replyId: string, username: String) {
+        try {
+            return userMongoDB.updateOne(
+                { "posts.respostas._id": replyId },
+                { $push: { 'posts.$[].respostas.$[r].curtidas': username }},
+                { arrayFilters: [{ 'r._id': replyId }]}
+            );
+        } catch (error) {
+            console.log(error)
+            return error;
+        }
+    }
 } 
