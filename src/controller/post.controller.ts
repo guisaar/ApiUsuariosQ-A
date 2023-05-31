@@ -41,7 +41,7 @@ export class PostsController {
 
     @Delete('/delete/posts/:_id')
     async deletePostById(@Param() _postId, @Body() _userId, @Res() res: Response) {
-        console.log(await this.postService.deletePostById(_userId._userId, _postId._id));
+        await this.postService.deletePostById(_userId._userId, _postId._id);
         return res.status(201).send({ message: "Post deletado com sucesso." })
     }
 }

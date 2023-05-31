@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PostQuestion, Respostas } from "src/dto/usuario.dto";
+import { Respostas } from "src/dto/usuario.dto";
 const userMongoDB = require('../dto/user.schema.mongo');
 
 
@@ -22,7 +22,7 @@ export class ReplyService {
         }
     }
 
-    async likeReplyById(replyId: string, username: String) {
+    likeReplyById(replyId: string, username: String) {
         try {
             return userMongoDB.updateOne(
                 { "posts.respostas._id": replyId },
@@ -31,6 +31,28 @@ export class ReplyService {
             );
         } catch (error) {
             console.log(error)
+            
+        }
+    }
+
+    updateReplyById (replyId: string, reply: Respostas) {
+        let replyUpdates = {};
+
+        Object.keys(reply).map(key => {
+            replyUpdates[`posts.$.${key}`] = reply[key]
+        })
+
+        try {
+            return userMongoDB.updateOne({ "posts.respostas._id": replyId }, { $set: replyUpdates });
+        } catch (error) {
+            return error;
+        }
+    }
+
+    deleteReplyById (postId:string , replyId: string) {
+        try {
+            return userMongoDB.updateOne({ "posts._id": postId }, { $pull: { "posts.$.respostas": { _id: replyId } } });
+        } catch (error) {
             return error;
         }
     }

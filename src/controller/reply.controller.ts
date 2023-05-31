@@ -31,4 +31,11 @@ export class ReplyController {
     }
 
 
+    @Delete('/delete/:_replyId')
+    async deleteReplyById(@Param() _replyId, @Body() postId, @Res() res: Response) {
+        console.log(await this.replyService.deleteReplyById(postId._postId , _replyId._replyId));
+        
+        return res.status(201).send({ message: "Resposta deletada com sucesso." })
+    }
+
 }
