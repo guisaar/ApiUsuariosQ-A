@@ -54,9 +54,13 @@ export class ReplyService {
         }
     }
 
-    deleteReplyById(postId: string, replyId: string) {
+    deleteReplyById(replyId: string) {
         try {
-            return userMongoDB.updateOne({ "posts._id": postId }, { $pull: { "posts.$.respostas": { _id: replyId } } });
+            return userMongoDB.updateOne(
+                { "posts.respostas._id": replyId },
+                { $pull: { "posts.$.respostas": { _id: replyId } } },
+                { arrayFilters: [{ 'r._id': replyId }] }
+            );
         } catch (error) {
             return error;
         }
