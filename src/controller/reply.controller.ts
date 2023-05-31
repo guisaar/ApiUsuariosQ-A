@@ -21,9 +21,21 @@ export class ReplyController {
     }
 
     @Put('/update/:_replyId')
-    async updateReplyById(@Param() _replyId, @Param() _postId, @Body() reply: Respostas, @Res() res: Response) {
-        await this.replyService.updateReplyById(_replyId._replyId, reply);
-        return res.status(201).send({ message: "Resposta atualizada com sucesso." })
+    async updateReplyById(@Param() _replyId, @Body() reply: Respostas, @Res() res: Response) {
+        let arrNotAccepted = [];
+
+        Object.keys(reply).map(key => {
+            if (key != "respostaTexto") {
+                arrNotAccepted.push(key);
+            }
+        });
+
+        if (arrNotAccepted.length > 0) {
+            return res.status(422).send({message: `Campo(s) não aceito(s) para atualizar: ${arrNotAccepted}`}) 
+        } else {
+            await this.replyService.updateReplyById(_replyId._replyId, reply);
+            return res.status(201).send({ message: "Resposta atualizada com sucesso." })
+        }
 
     }
 
@@ -38,8 +50,8 @@ export class ReplyController {
     }
 
     @Delete('/delete/:_replyId')
-    async deleteReplyById(@Param() _replyId, @Body() postId, @Res() res: Response) {
-        await this.replyService.deleteReplyById(postId._postId, _replyId._replyId);
+    async deleteReplyById(@Param() _replyId, @Res() res: Response) {
+        await this.replyService.deleteReplyById(_replyId._replyId);
         return res.status(201).send({ message: "Resposta deletada com sucesso." })
     }
 
