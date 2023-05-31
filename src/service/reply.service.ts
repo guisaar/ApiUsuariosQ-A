@@ -22,7 +22,21 @@ export class ReplyService {
         }
     }
 
-    updateReplyById(replyId: string, reply: Respostas) {
+    likeReplyById(replyId: string, username: String) {
+        try {
+            return userMongoDB.updateOne(
+                { "posts.respostas._id": replyId },
+                { $push: { 'posts.$[].respostas.$[r].curtidas': username }},
+                { arrayFilters: [{ 'r._id': replyId }]}
+            );
+        } catch (error) {
+            console.log(error)
+            
+        }
+    }
+
+    updateReplyById (replyId: string, reply: Respostas) {
+      
         let replyUpdates = {};
 
         Object.keys(reply).map(key => {
