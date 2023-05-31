@@ -36,20 +36,25 @@ export class ReplyService {
     }
 
     updateReplyById (replyId: string, reply: Respostas) {
+      
         let replyUpdates = {};
 
         Object.keys(reply).map(key => {
-            replyUpdates[`posts.$.${key}`] = reply[key]
-        })
+            replyUpdates[`posts.$.respostas.$[r].${key}`] = reply[key];
+        });
 
         try {
-            return userMongoDB.updateOne({ "posts.respostas._id": replyId }, { $set: replyUpdates });
+            return userMongoDB.updateOne(
+                { "posts.respostas._id": replyId },
+                { $set: replyUpdates },
+                { arrayFilters: [{ 'r._id': replyId }] }
+            );
         } catch (error) {
             return error;
         }
     }
 
-    deleteReplyById (postId:string , replyId: string) {
+    deleteReplyById(postId: string, replyId: string) {
         try {
             return userMongoDB.updateOne({ "posts._id": postId }, { $pull: { "posts.$.respostas": { _id: replyId } } });
         } catch (error) {
