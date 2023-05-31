@@ -15,13 +15,6 @@ const postagemUser = new Schema({
             usuario: String,
             respostaTexto: String,
             curtidas: [],
-            respostas: [{
-                usuario: String,
-                respostaTexto: String,
-                curtidas: [],
-                criadoEm: Date,
-                atualizadoEm: Date
-            }],
             criadoEm: Date,
             atualizadoEm: Date
         }],
