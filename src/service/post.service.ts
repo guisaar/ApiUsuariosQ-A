@@ -22,6 +22,21 @@ export class PostService {
         }
     }
 
+    getPosts() {
+        try {
+            return userMongoDB.aggregate([
+                {
+                  $unwind: "$posts"
+                },
+                {
+                  $replaceRoot: { newRoot: "$posts" }
+                }
+              ]);
+        } catch (error) {
+            return error;
+        }
+    }
+
     updatePostById(postId: string, post: PostQuestion) {
         let postUpdates = {};
 
