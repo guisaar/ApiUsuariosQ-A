@@ -63,6 +63,8 @@ export class PostsController {
        if (arrNotAccepted.length > 0) {
             return res.status(422).send({ message: `Campo(s) não aceito(s) para atualização do post: ${arrNotAccepted}` })
         } else {
+            let perguntaTexto = post.pergunta;
+            post.pergunta = `[EDITADO] ${perguntaTexto}`
             await this.postService.updatePostById(_id._id, post);
             post.atualizadoEm = new Date();
             return res.status(201).send({ message: "Post atualizado com sucesso." })
