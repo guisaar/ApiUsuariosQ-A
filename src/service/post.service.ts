@@ -24,7 +24,7 @@ export class PostService {
 
     getPosts() {
         try {
-            return userMongoDB.find({},{"_id":1,"usuario":1, "posts":1}).exec();
+            return userMongoDB.find({},{"_id":1,"usuario":1, "urlImg":1,"posts":1}).exec();
         } catch (error) {
             return error;
         }
