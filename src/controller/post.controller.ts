@@ -42,6 +42,12 @@ export class PostsController {
         }
     }
 
+    @Get('/list')
+    async getPosts(@Res() res: Response) {
+        const postsList = await this.postService.getPosts();
+        return res.status(200).send(postsList);
+    }
+
     @Put('/update/posts/:_id')
     async updatePostById(@Param() _id, @Body() post: PostQuestion, @Res() res: Response) {
         let arrNotAccepted = [];
