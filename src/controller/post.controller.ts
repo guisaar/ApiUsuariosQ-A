@@ -65,8 +65,8 @@ export class PostsController {
         } else {
             let perguntaTexto = post.pergunta;
             post.pergunta = `[EDITADO] ${perguntaTexto}`
-            await this.postService.updatePostById(_id._id, post);
             post.atualizadoEm = new Date();
+            await this.postService.updatePostById(_id._id, post);
             return res.status(201).send({ message: "Post atualizado com sucesso." })
         }
         
